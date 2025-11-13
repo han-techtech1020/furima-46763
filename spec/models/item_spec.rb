@@ -30,7 +30,7 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Category can't be blank")
       end
-      
+
       it '商品の状態が未選択（1）だと出品できない' do
         @item.condition_id = 1
         @item.valid?
@@ -64,13 +64,13 @@ RSpec.describe Item, type: :model do
       it '価格が300未満では出品できない' do
         @item.price = 200
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price must be between ¥300 and ¥9,999,999")
+        expect(@item.errors.full_messages).to include('Price must be between ¥300 and ¥9,999,999')
       end
 
       it '価格が9,999,999より大きいと出品できない' do
         @item.price = 10_000_000
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price must be between ¥300 and ¥9,999,999")
+        expect(@item.errors.full_messages).to include('Price must be between ¥300 and ¥9,999,999')
       end
 
       it '商品画像が添付されていないと出品できない' do
