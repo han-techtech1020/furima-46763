@@ -44,7 +44,6 @@ class ItemsController < ApplicationController
     redirect_to root_path unless current_user == @item.user
   end
 
-
   def item_params
     params.require(:item).permit(:name, :description, :category_id, :condition_id,
                                  :shipping_charge_id, :prefecture_id, :shipping_day_id,
