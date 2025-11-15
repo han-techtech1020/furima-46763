@@ -32,7 +32,7 @@
       <% elsif @item.order.present? %>
         <%# 売却済みは何も表示しない %>
       <% else %>
-        <%= link_to "購入画面に進む", new_item_purchase_path(@item),class: "item-red-btn"%>
+        <%= link_to "購入画面に進む", new_item_purchase_path(@item), data: { turbo: false }, class: "item-red-btn"%>
       <% end %>
     <% else %>
       <%= link_to "購入画面に進む", new_user_session_path, class: "item-red-btn" %>
