@@ -1,14 +1,19 @@
 class User < ApplicationRecord
+
+  has_many :items
+  has_many :orders
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+
+
   VALID_NAME_REGEX = /\A[ぁ-んァ-ン一-龥々ーヶ]+\z/
   VALID_KANA_REGEX = /\A[ァ-ヶー－]+\z/
   VALID_PASSWORD_REGEX = /\A(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]+\z/
 
-  # バリデーション
   validates :nickname, presence: true
 
   validates :last_name, presence: true, format: { with: VALID_NAME_REGEX }
