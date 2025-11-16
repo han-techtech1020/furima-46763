@@ -1,5 +1,4 @@
 class User < ApplicationRecord
-
   has_many :items
   has_many :orders
 
@@ -7,8 +6,6 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-
-
 
   VALID_NAME_REGEX = /\A[ぁ-んァ-ン一-龥々ーヶ]+\z/
   VALID_KANA_REGEX = /\A[ァ-ヶー－]+\z/
