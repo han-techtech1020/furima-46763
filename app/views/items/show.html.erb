@@ -26,16 +26,19 @@
 
     <% if user_signed_in? %>
       <% if current_user == @item.user %>
-        <%= link_to "商品の編集", edit_item_path(@item), class: "item-red-btn" %>
-        <p class="or-text">or</p>
-        <%= link_to "削除", item_path(@item), data: { turbo_method: :delete }, class: "item-destroy" %>
-      <% elsif @item.order.present? %>
-        <%# 売却済みは何も表示しない %>
+        <%# 出品者向け（売却済みなら何も表示しない） %>
+        <% if @item.order.nil? %>
+          <%= link_to "商品の編集", edit_item_path(@item), class: "item-red-btn" %>
+          <p class="or-text">or</p>
+          <%= link_to "削除", item_path(@item), data: { turbo_method: :delete }, class: "item-destroy" %>
+        <% end %>
       <% else %>
-        <%= link_to "購入画面に進む", new_item_purchase_path(@item), data: { turbo: false }, class: "item-red-btn"%>
+        <%# 出品者以外（売却済みなら何も表示しない） %>
+        <% if @item.order.nil? %>
+          <%= link_to "購入画面に進む", new_item_purchase_path(@item), data: { turbo: false }, class: "item-red-btn"%>
+        <% end %>
       <% end %>
     <% else %>
-      <%= link_to "購入画面に進む", new_user_session_path, class: "item-red-btn" %>
     <% end %>
 
     <div class="item-explain-box">

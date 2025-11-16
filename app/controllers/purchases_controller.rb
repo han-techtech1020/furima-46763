@@ -5,7 +5,7 @@ class PurchasesController < ApplicationController
 
   def new
     @purchase = Purchase.new
-    gon.public_key = ENV['PAYJP_PUBLIC_KEY']
+    gon.public_key = Rails.application.credentials.payjp[:public_key]
   end
 
   def create
@@ -16,7 +16,8 @@ class PurchasesController < ApplicationController
       @purchase.save
       redirect_to root_path
     else
-      gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
+      gon.public_key = Rails.application.credentials.payjp[:public_key]
+      puts "Purchase validation errors: #{@purchase.errors.full_messages}"
       render :new
     end
   end
@@ -40,12 +41,13 @@ class PurchasesController < ApplicationController
   end
 
   def charge_item
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    ENV['SSL_CERT_FILE'] = '/usr/local/etc/ca-certificates/cert.pem'
+
+    Payjp.api_key = Rails.application.credentials.payjp[:secret_key]
     Payjp::Charge.create(
       amount: @item.price,
       card: purchase_params[:token],
       currency: 'jpy'
     )
   end
-  
 end

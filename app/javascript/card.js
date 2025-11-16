@@ -2,17 +2,20 @@
 const pay = () => {
   const payjp = Payjp(gon.public_key); 
   const elements = payjp.elements();
+  const numberElement = elements.create('cardNumber');
+  const expiryElement = elements.create('cardExpiry');
+  const cvcElement = elements.create('cardCvc');
 
-  elements.create('cardNumber').mount('#number-form');
-  elements.create('cardExpiry').mount('#expiry-form');
-  elements.create('cardCvc').mount('#cvc-form');
+  numberElement.mount('#number-form');
+  expiryElement.mount('#expiry-form');
+  cvcElement.mount('#cvc-form');
 
   const form = document.getElementById('charge-form');
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    payjp.createToken(elements).then((response) => {
+    payjp.createToken(numberElement).then((response) => {
       if (response.error) {
         alert(response.error.message);
       } else {
