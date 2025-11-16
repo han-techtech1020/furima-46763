@@ -66,6 +66,12 @@ RSpec.describe Purchase, type: :model do
         expect(@purchase.errors.full_messages).to include('Phone number is invalid')
       end
 
+      it 'phone_numberに半角数字以外が含まれていると購入できない' do
+        @purchase.phone_number = '090-1234-5678'
+        @purchase.valid?
+        expect(@purchase.errors.full_messages).to include('Phone number is invalid')
+      end
+
       it 'tokenが空だと購入できない' do
         @purchase.token = ''
         @purchase.valid?

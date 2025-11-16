@@ -17,7 +17,6 @@ class PurchasesController < ApplicationController
       redirect_to root_path
     else
       gon.public_key = Rails.application.credentials.payjp[:public_key]
-      puts "Purchase validation errors: #{@purchase.errors.full_messages}"
       render :new
     end
   end
