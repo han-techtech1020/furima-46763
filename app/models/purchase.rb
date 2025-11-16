@@ -4,7 +4,9 @@ class Purchase
   attr_accessor :postal_code, :prefecture_id, :city, :street, :building, :phone_number, :user_id, :item_id, :token
 
   # バリデーション
-  validates :postal_code, :prefecture_id, :city, :street, :phone_number, :token, presence: true
+  validates :postal_code, :city, :street, :phone_number, :token, presence: true
+  validates :prefecture_id, numericality: { other_than: 1, message: "can't be blank" }
+
   validates :postal_code, format: { with: /\A\d{3}-\d{4}\z/ }
   validates :phone_number, format: { with: /\A\d{10,11}\z/ }
 

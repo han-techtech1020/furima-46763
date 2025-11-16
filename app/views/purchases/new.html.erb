@@ -35,6 +35,9 @@
 
     
     <%= form_with model: @purchase, url: item_purchases_path(@item), local: true, id: 'charge-form', class: 'transaction-form-wrap' do |f| %>
+    
+    <%= render 'shared/error_messages', model: f.object %>
+
     <%# カード情報の入力 %>
     <div class='credit-card-form'>
       <h1 class='info-input-haedline'>
