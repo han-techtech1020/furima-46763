@@ -13,21 +13,20 @@ const pay = () => {
   const form = document.getElementById('charge-form');
 
   form.addEventListener("submit", (e) => {
-    e.preventDefault();
-
     payjp.createToken(numberElement).then((response) => {
       if (response.error) {
-        alert(response.error.message);
       } else {
-        const tokenInput = document.createElement('input');
-        tokenInput.setAttribute('type', 'hidden');
-        tokenInput.setAttribute('name', 'token');
-        tokenInput.setAttribute('value', response.id);
-        form.appendChild(tokenInput);
-
-        form.submit();
+        const token = response.id;
+        const renderDom = document.getElementById("charge-form");
+        const tokenObj = `<input value=${token} name='token' type="hidden">`;
+        renderDom.insertAdjacentHTML("beforeend", tokenObj);
       }
+      numberElement.clear();
+      expiryElement.clear();
+      cvcElement.clear();
+      document.getElementById("charge-form").submit();
     });
+    e.preventDefault(); 
   });
 };
 
