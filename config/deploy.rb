@@ -11,6 +11,8 @@ set :branch, 'main'
 # バージョンが変わっても共通で参照するディレクトリを指定
 set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system', 'public/uploads')
 
+append :linked_files, "config/master.key"
+
 set :rbenv_type, :user
 set :rbenv_ruby, '3.2.0' #カリキュラム通りに進めた場合、’3.2.0’ です
 
